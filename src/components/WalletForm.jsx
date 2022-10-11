@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiCurrencies } from '../redux/actions';
+import { fetchApiCurrencies, fetchApiExchange } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -20,6 +20,11 @@ class WalletForm extends Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+  };
+
+  handleClick = () => {
+    const { dispatch } = this.props;
+    dispatch(fetchApiExchange());
   };
 
   render() {
@@ -102,6 +107,12 @@ class WalletForm extends Component {
             <option value="healt">Saúde</option>
           </select>
         </label>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
