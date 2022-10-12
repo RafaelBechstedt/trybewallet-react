@@ -7,9 +7,9 @@ class WalletForm extends Component {
   state = {
     expenses: '',
     description: '',
-    currency: '',
-    paymentMethod: '',
-    tag: '',
+    currency: 'USD',
+    paymentMethod: 'Dinheiro',
+    tag: 'Alimentação',
   };
 
   componentDidMount() {
@@ -24,7 +24,16 @@ class WalletForm extends Component {
 
   handleClick = () => {
     const { dispatch } = this.props;
-    dispatch(fetchApiExchange());
+
+    dispatch(fetchApiExchange({ ...this.state }));
+
+    this.setState({
+      expenses: '',
+      description: '',
+      currency: 'USD',
+      paymentMethod: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   };
 
   render() {
@@ -120,6 +129,7 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  id: state.wallet.expenses.lenght,
 });
 
 export default connect(mapStateToProps)(WalletForm);
