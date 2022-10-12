@@ -22,8 +22,7 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleClick = (event) => {
-    event.preventDefault();
+  handleClick = () => {
     const { value, description, currency, method, tag } = this.state;
     const { dispatch, id } = this.props;
     const itens = { id, value, description, currency, method, tag };
@@ -97,9 +96,9 @@ class WalletForm extends Component {
             data-testid="method-input"
             onChange={ this.handleChange }
           >
-            <option value="cash">Dinheiro</option>
-            <option value="credit">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
 
@@ -112,11 +111,11 @@ class WalletForm extends Component {
             data-testid="tag-input"
             onChange={ this.handleChange }
           >
-            <option value="cash">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="healt">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <button
