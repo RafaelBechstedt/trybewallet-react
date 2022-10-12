@@ -5,10 +5,10 @@ import { fetchApiCurrencies, fetchApiExchange } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    expenses: '',
+    value: '',
     description: '',
     currency: 'USD',
-    paymentMethod: 'Dinheiro',
+    method: 'Dinheiro',
     tag: 'Alimentação',
   };
 
@@ -22,23 +22,26 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleClick = () => {
-    const { dispatch } = this.props;
+  handleClick = (event) => {
+    event.preventDefault();
+    const { value, description, currency, method, tag } = this.state;
+    const { dispatch, id } = this.props;
+    const itens = { id, value, description, currency, method, tag };
 
-    dispatch(fetchApiExchange({ ...this.state }));
+    dispatch(fetchApiExchange(itens));
 
     this.setState({
-      expenses: '',
+      value: '',
       description: '',
       currency: 'USD',
-      paymentMethod: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     });
   };
 
   render() {
     const { currencies } = this.props;
-    const { expenses, description, currency, paymentMethod, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="expenses">
@@ -46,8 +49,8 @@ class WalletForm extends Component {
           <input
             id="expenses"
             type="number"
-            name="expenses"
-            value={ expenses }
+            name="value"
+            value={ value }
             data-testid="value-input"
             onChange={ this.handleChange }
           />
@@ -89,8 +92,8 @@ class WalletForm extends Component {
           Método de pagamento:
           <select
             id="paymentMethod"
-            name="paymentMethod"
-            value={ paymentMethod }
+            name="method"
+            value={ method }
             data-testid="method-input"
             onChange={ this.handleChange }
           >
@@ -129,7 +132,7 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  id: state.wallet.expenses.lenght,
+  id: state.wallet.expenses.length,
 });
 
 export default connect(mapStateToProps)(WalletForm);
@@ -137,4 +140,5 @@ export default connect(mapStateToProps)(WalletForm);
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.number.isRequired,
 };
