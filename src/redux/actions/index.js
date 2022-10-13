@@ -1,6 +1,7 @@
 export const GET_EMAIL = 'GET_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const getEmail = (payload) => ({
   type: GET_EMAIL,
@@ -32,3 +33,8 @@ export function fetchApiExchange(payload) {
     dispatch(addExpense(payload, data));
   };
 }
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
